@@ -1,10 +1,23 @@
+import { ReactNode } from "react";
+
 export interface SignInFormValues {
-  email: string;
+  username: string;
   password: string;
 }
 
-import { ReactNode } from "react";
 
 export interface ProvidersProps {
   children: ReactNode;
 }
+
+
+export interface RootState {
+  auth: AuthState;
+}
+
+export interface AuthState {
+  token: string | null;
+  error: string | null;
+  loading: boolean;
+}
+

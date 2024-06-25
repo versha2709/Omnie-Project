@@ -1,4 +1,4 @@
-import SignIn from "@/Signin/page";
+import SignIn from "@/Signin/signin";
 
 export default function Home() {
   return (

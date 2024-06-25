@@ -1,12 +1,9 @@
-import * as Yup from "yup";
+// yup.ts
+import * as yup from 'yup';
 
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
-  password: Yup.string()
-    .min(8, "Password must be at least 8 characters")
-    .required("Password is required"),
+const validationSchema = yup.object({
+  username: yup.string().required('Username is required'),
+  password: yup.string().required('Password is required'),
 });
 
 export default validationSchema;
