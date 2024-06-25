@@ -1,9 +1,9 @@
-import Signin from "./Signin/page.js";
+import SignIn from "@/Signin/page";
 
 export default function Home() {
   return (
 <>
-<Signin />
+<SignIn />
 </>
   );
 }
