@@ -1,4 +1,3 @@
-// SignIn.tsx
 "use client";
 
 import * as React from "react";
@@ -13,9 +12,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Formik, Form, Field } from "formik";
-import validationSchema from "./yup"; 
 import { RootState, AppDispatch } from "@/Redux/store";
 import { authenticateUser } from "@/Redux/SigninSlice";
+import validationSchema from "./yup";
 import "../styles.css";
 
 const initialValues = {
@@ -35,19 +34,26 @@ const SignIn: React.FC = () => {
   const router = useRouter();
   const authError = useSelector((state: RootState) => state.auth.error);
   const isLoading = useSelector((state: RootState) => state.auth.loading);
+  const authToken: any = useSelector(
+    (state: RootState) => state.auth.dataa?.token
+  );
 
   const handleSubmit = async (values: typeof initialValues) => {
-    dispatch(authenticateUser({username : values.username, password : values.password}));
+    dispatch(authenticateUser(values));
   };
 
+  console.log(authToken);
+
   React.useEffect(() => {
-    const handleRedirect = () => {
-      if (!isLoading && authError === null) {
-        router.push("/Utilities"); 
+    if (!isLoading) {
+      if (authToken) {
+        localStorage.setItem("token", authToken);
+        router.push("/Utilities");
+      } else if (authError) {
+        alert("Wrong Credentials");
       }
-      handleRedirect();
     }
-  }, [isLoading, authError, router]);
+  }, [isLoading, authError, authToken, router]);
 
   return (
     <div className="container">
@@ -62,7 +68,7 @@ const SignIn: React.FC = () => {
           </Typography>
           <Formik
             initialValues={initialValues}
-            validationSchema={validationSchema} // Use the yup validation schema here
+            validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
             {({ errors, touched }) => (
@@ -93,11 +99,7 @@ const SignIn: React.FC = () => {
                   error={touched.password && Boolean(errors.password)}
                   helperText={touched.password && errors.password}
                 />
-                {authError && (
-                  <Typography variant="body2" color="error">
-                    {authError}
-                  </Typography>
-                )}
+
                 <Button
                   type="submit"
                   fullWidth

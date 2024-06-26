@@ -1,35 +1,41 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
+interface User {
+  username: string;
+  password: string;
+  token?: string | null;
+}
+
 interface AuthState {
-  token: string | null;
+  dataa: User | null;
   error: string | null;
   loading: boolean;
 }
 
 const initialState: AuthState = {
-  token: null,
+  dataa: null,
   error: null,
   loading: false,
 };
 
+// Define the async thunk to authenticate user
 export const authenticateUser = createAsyncThunk(
   "auth/authenticateUser",
-  async (credentials: { username: string; password: string }) => {
+  async (values: User, { rejectWithValue }) => {
     try {
-      const response = await axios.post("https://apistg.appnovahome.com/Account/Authenticate", credentials, {
-       
-      });
+      const response = await axios.post(
+        "https://apistg.appnovahome.com/Account/Authenticate",
+        values
+      );
 
       if (response.status !== 200) {
         throw new Error(response.data.message || "Failed to authenticate.");
       }
 
-      const token = response.data.token; 
-      console.log(token);
-      return token;
-    } catch (error) {
-      console.log(error);
+      return response.data.data[0]; // return the whole response data
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
@@ -37,25 +43,29 @@ export const authenticateUser = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(authenticateUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(authenticateUser.fulfilled, (state, action: PayloadAction<string>) => {
-        state.loading = false;
-        state.token = action.payload;
-        state.error = null;
-      })
-      .addCase(authenticateUser.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      });
+      .addCase(
+        authenticateUser.fulfilled,
+        (state, action: PayloadAction<User>) => {
+          state.loading = false;
+          state.dataa = action.payload; // store the user data including the token
+          state.error = null;
+        }
+      )
+      .addCase(
+        authenticateUser.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.loading = false;
+          state.error = action.payload;
+        }
+      );
   },
 });
-
 
 export default authSlice.reducer;
