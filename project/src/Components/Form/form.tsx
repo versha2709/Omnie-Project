@@ -14,6 +14,8 @@ import {
   layoutSchema,
   settingsSchema,
 } from "./validate";
+import { useDispatch } from "react-redux";
+import { addState } from "@/Redux/AddSlice";
 
 interface DynamicFormProps {
   sliceName: string;
@@ -21,6 +23,8 @@ interface DynamicFormProps {
 }
 
 const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
+  const dispatch = useDispatch();
+
   let initialValues: any = {};
   let validationSchema: any = {};
 
@@ -112,6 +116,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
 
   const handleSubmit = (values: any) => {
     console.log("Form submitted with values:", values);
+    dispatch(addState(values));
     onClose();
   };
 
