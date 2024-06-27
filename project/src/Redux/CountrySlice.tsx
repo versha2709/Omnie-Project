@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const token = localStorage.getItem("token");
-console.log(token);
+// console.log(token);
 interface CountryData {
   id: number;
   Name: string;
@@ -35,6 +35,7 @@ export const fetchCountry = createAsyncThunk(
         },
       }
     );
+    console.log(response.data);
 
     return response.data;
   }

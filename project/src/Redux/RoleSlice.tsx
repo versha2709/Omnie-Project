@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const token = localStorage.getItem("token");
-console.log(token);
+// console.log(token);
 interface RoleData {
   id: number;
   Name: string;
@@ -34,6 +34,8 @@ export const fetchRoles = createAsyncThunk("role/fetchRoles", async () => {
       },
     }
   );
+  console.log(response.data);
+
   return response.data;
 });
 

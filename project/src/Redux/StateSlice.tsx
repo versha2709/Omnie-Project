@@ -21,7 +21,7 @@ const initialState: StateSliceState = {
   error: null,
 };
 const token = localStorage.getItem("token");
-console.log(token);
+// console.log(token);
 export const fetchStates = createAsyncThunk("state/fetchStates", async () => {
   const response = await axios.get<StateData[]>(
     "https://apistg.appnovahome.com/Master/State/Get",
