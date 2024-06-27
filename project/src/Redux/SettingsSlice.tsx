@@ -1,5 +1,3 @@
-// SettingsSlice.ts
-
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -29,7 +27,7 @@ export const fetchSettings = createAsyncThunk(
   "settings/fetchSettings",
   async () => {
     const response = await axios.get<SettingsData[]>(
-      "https://apistg.appnovahome.com/Master/Settings/Get", // Replace with actual API endpoint
+      "https://apistg.appnovahome.com/Master/Settings/Get",
       {
         headers: {
           Authorization: `Bearer ${token}`,

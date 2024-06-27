@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const token = localStorage.getItem("token");
-// console.log(token);
 interface LayoutData {
   id: number;
   Name: string;
@@ -23,7 +22,6 @@ const initialState: LayoutSliceState = {
   error: null,
 };
 
-// Define async thunk for fetching data
 export const fetchLayout = createAsyncThunk("Layout/fetchLayout", async () => {
   const response = await axios.get<LayoutData[]>(
     "https://apistg.appnovahome.com/Master/Layout/Get",

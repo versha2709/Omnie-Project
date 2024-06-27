@@ -60,15 +60,13 @@ const Table: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
-    // Fetch initial data if no button has been clicked yet
     if (!selectedSlice) {
       fetchInitialState();
     }
   }, [selectedSlice]);
 
   const fetchInitialState = () => {
-    // Perform initial data fetching here
-    dispatch(fetchStates()); // Example: Fetch states as initial data
+    dispatch(fetchStates());
   };
 
   const selectState = useSelector((state: RootState) => state.state.data.data);
@@ -229,7 +227,6 @@ const Table: React.FC = () => {
             placeholder="Search by name or description"
             variant="standard"
             sx={{ marginLeft: 1, width: "150px" }}
-            value={utilitySearchText}
             onChange={handleSearchChange}
           />
           <IconButton sx={{ marginLeft: 1, color: "orange" }}>

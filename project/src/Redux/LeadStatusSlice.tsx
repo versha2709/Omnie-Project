@@ -23,7 +23,6 @@ const initialState: LeadStatusSliceState = {
   error: null,
 };
 
-// Define async thunk for fetching data
 export const fetchLeadStatus = createAsyncThunk(
   "leadStatus/fetchLeadStatus",
   async () => {

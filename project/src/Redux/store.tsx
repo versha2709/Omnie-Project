@@ -1,4 +1,3 @@
-// store.tsx
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import stateReducer from "./StateSlice";
 import countryReducer from "./CountrySlice";

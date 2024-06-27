@@ -23,7 +23,6 @@ const initialState: GenderSliceState = {
   error: null,
 };
 
-// Define async thunk for fetching data
 export const fetchGender = createAsyncThunk("gender/fetchGender", async () => {
   const response = await axios.get<GenderData[]>(
     "https://apistg.appnovahome.com/Master/Gender/Get",

@@ -13,7 +13,7 @@ import {
   storeSchema,
   layoutSchema,
   settingsSchema,
-} from "./validate"; 
+} from "./validate";
 
 interface DynamicFormProps {
   sliceName: string;
@@ -112,7 +112,8 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
 
   const handleSubmit = (values: any) => {
     console.log("Form submitted with values:", values);
-    onClose(); 
+    onClose();
+  };
 
   return (
     <Formik
@@ -167,6 +168,18 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
                 : ""
             }
           />
+          {sliceName === "stateSlice" && (
+            <Field
+              as={TextField}
+              name="country"
+              label="Country"
+              fullWidth
+              error={errors.country && touched.country}
+              helperText={
+                errors.country && touched.country ? errors.country : ""
+              }
+            />
+          )}
           {sliceName === "countrySlice" && (
             <>
               <Field
@@ -191,6 +204,18 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
                 }
               />
             </>
+          )}
+          {sliceName === "brandSlice" && (
+            <Field
+              as={TextField}
+              name="industry"
+              label="Industry"
+              fullWidth
+              error={errors.industry && touched.industry}
+              helperText={
+                errors.industry && touched.industry ? errors.industry : ""
+              }
+            />
           )}
           {sliceName === "roleSlice" && (
             <Field

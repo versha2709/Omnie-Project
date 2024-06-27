@@ -19,7 +19,6 @@ const initialState: AuthState = {
   loading: false,
 };
 
-// Define the async thunk to authenticate user
 export const authenticateUser = createAsyncThunk(
   "auth/authenticateUser",
   async (values: User, { rejectWithValue }) => {
@@ -33,7 +32,7 @@ export const authenticateUser = createAsyncThunk(
         throw new Error(response.data.message || "Failed to authenticate.");
       }
 
-      return response.data.data[0]; // return the whole response data
+      return response.data.data[0];
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
@@ -54,7 +53,7 @@ const authSlice = createSlice({
         authenticateUser.fulfilled,
         (state, action: PayloadAction<User>) => {
           state.loading = false;
-          state.dataa = action.payload; // store the user data including the token
+          state.dataa = action.payload;
           state.error = null;
         }
       )
