@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -30,11 +31,7 @@ import { fetchGender } from "@/Redux/GenderSlice";
 import { fetchStores } from "@/Redux/StoreSlice";
 import { fetchLayout } from "@/Redux/LayoutSlice";
 import { fetchSettings } from "@/Redux/SettingsSlice";
-
-interface ButtonConfig {
-  label: string;
-  action: () => void;
-}
+import { ButtonConfig } from "@/Types";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 90 },
@@ -50,8 +47,8 @@ const columns: GridColDef[] = [
   },
 ];
 
-const Table: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+const Table = () => {
+  const dispatch: AppDispatch = useDispatch();
   const { loading, error } = useSelector((state: RootState) => state.state);
 
   const [selectedSlice, setSelectedSlice] = useState<string | null>(null);
@@ -189,9 +186,7 @@ const Table: React.FC = () => {
     button.label.toLowerCase().includes(utilitySearchText.toLowerCase())
   );
 
-  const handleSearchChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  const handleSearchChange = (event: any): void => {
     setUtilitySearchText(event.target.value);
   };
 
@@ -216,9 +211,7 @@ const Table: React.FC = () => {
       <Paper sx={{ flex: 1, backgroundColor: "whitesmoke" }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {selectedSlice
-              ? selectedSlice.replace("Slice", "")
-              : "Select a utility"}
+            {selectedSlice ? selectedSlice.replace("Slice", "") : "Utility"}
           </Typography>
           <SearchIcon sx={{ marginRight: 1 }} />
           <TextField
@@ -227,7 +220,6 @@ const Table: React.FC = () => {
             placeholder="Search by name or description"
             variant="standard"
             sx={{ marginLeft: 1, width: "150px" }}
-            onChange={handleSearchChange}
           />
           <IconButton sx={{ marginLeft: 1, color: "orange" }}>
             <Typography variant="button">US</Typography>
@@ -265,7 +257,7 @@ const Table: React.FC = () => {
             />
           ) : (
             <Typography variant="body1" sx={{ p: 2 }}>
-              Please select a utility to load data.
+              Please select button.
             </Typography>
           )}
         </Box>
@@ -288,7 +280,6 @@ const Table: React.FC = () => {
           fullWidth
           label="Search Utility Buttons"
           variant="outlined"
-          value={utilitySearchText}
           onChange={handleSearchChange}
         />
         <Grid container spacing={2} sx={{ marginTop: 2 }}>

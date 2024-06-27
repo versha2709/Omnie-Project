@@ -16,14 +16,11 @@ import {
 } from "./validate";
 import { useDispatch } from "react-redux";
 import { addState } from "@/Redux/AddSlice";
-
-interface DynamicFormProps {
-  sliceName: string;
-  onClose: () => void;
-}
+import { AppDispatch } from "@/Redux/store";
+import { DynamicFormProps } from "@/Types";
 
 const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   let initialValues: any = {};
   let validationSchema: any = {};
@@ -34,7 +31,6 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
         name: "",
         description: "",
         country: "",
-        status: "",
       };
       validationSchema = stateSchema;
       break;
@@ -42,8 +38,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
       initialValues = {
         name: "",
         description: "",
-        code: "",
-        population: 0,
+        country: "",
       };
       validationSchema = countrySchema;
       break;
@@ -51,7 +46,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
       initialValues = {
         name: "",
         description: "",
-        industry: "",
+        country: "",
       };
       validationSchema = brandSchema;
       break;
@@ -59,6 +54,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
       initialValues = {
         name: "",
         description: "",
+        country: "",
       };
       validationSchema = leadStatusSchema;
       break;
@@ -66,6 +62,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
       initialValues = {
         name: "",
         description: "",
+        country: "",
       };
       validationSchema = leadTypeSchema;
       break;
@@ -73,7 +70,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
       initialValues = {
         name: "",
         description: "",
-        permissions: "",
+        country: "",
       };
       validationSchema = roleSchema;
       break;
@@ -81,6 +78,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
       initialValues = {
         name: "",
         description: "",
+        country: "",
       };
       validationSchema = genderSchema;
       break;
@@ -88,7 +86,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
       initialValues = {
         name: "",
         description: "",
-        location: "",
+        country: "",
       };
       validationSchema = storeSchema;
       break;
@@ -96,7 +94,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
       initialValues = {
         name: "",
         description: "",
-        format: "",
+        country: "",
       };
       validationSchema = layoutSchema;
       break;
@@ -104,7 +102,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
       initialValues = {
         name: "",
         description: "",
-        value: "",
+        country: "",
       };
       validationSchema = settingsSchema;
       break;
@@ -157,7 +155,6 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
             label="Name"
             fullWidth
             error={errors.name && touched.name}
-            helperText={errors.name && touched.name ? errors.name : ""}
           />
           <Field
             as={TextField}
@@ -167,23 +164,9 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
             multiline
             rows={4}
             error={errors.description && touched.description}
-            helperText={
-              errors.description && touched.description
-                ? errors.description
-                : ""
-            }
           />
           {sliceName === "stateSlice" && (
-            <Field
-              as={TextField}
-              name="country"
-              label="Country"
-              fullWidth
-              error={errors.country && touched.country}
-              helperText={
-                errors.country && touched.country ? errors.country : ""
-              }
-            />
+            <Field as={TextField} name="country" label="Country" fullWidth />
           )}
           {sliceName === "countrySlice" && (
             <>
@@ -193,7 +176,6 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
                 label="Code"
                 fullWidth
                 error={errors.code && touched.code}
-                helperText={errors.code && touched.code ? errors.code : ""}
               />
               <Field
                 as={TextField}
@@ -202,11 +184,6 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
                 fullWidth
                 type="number"
                 error={errors.population && touched.population}
-                helperText={
-                  errors.population && touched.population
-                    ? errors.population
-                    : ""
-                }
               />
             </>
           )}
@@ -217,9 +194,6 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
               label="Industry"
               fullWidth
               error={errors.industry && touched.industry}
-              helperText={
-                errors.industry && touched.industry ? errors.industry : ""
-              }
             />
           )}
           {sliceName === "roleSlice" && (
@@ -229,11 +203,6 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
               label="Permissions"
               fullWidth
               error={errors.permissions && touched.permissions}
-              helperText={
-                errors.permissions && touched.permissions
-                  ? errors.permissions
-                  : ""
-              }
             />
           )}
           {sliceName === "storeSlice" && (
@@ -243,9 +212,6 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
               label="Location"
               fullWidth
               error={errors.location && touched.location}
-              helperText={
-                errors.location && touched.location ? errors.location : ""
-              }
             />
           )}
           {sliceName === "layoutSlice" && (
@@ -255,7 +221,6 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
               label="Format"
               fullWidth
               error={errors.format && touched.format}
-              helperText={errors.format && touched.format ? errors.format : ""}
             />
           )}
           {sliceName === "settingsSlice" && (
@@ -265,7 +230,6 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ sliceName, onClose }) => {
               label="Value"
               fullWidth
               error={errors.value && touched.value}
-              helperText={errors.value && touched.value ? errors.value : ""}
             />
           )}
           <Button type="submit" variant="contained" color="primary">

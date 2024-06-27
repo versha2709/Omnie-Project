@@ -28,10 +28,6 @@ export const authenticateUser = createAsyncThunk(
         values
       );
 
-      if (response.status !== 200) {
-        throw new Error(response.data.message || "Failed to authenticate.");
-      }
-
       return response.data.data[0];
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || error.message);

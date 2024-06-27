@@ -1,19 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-
-interface StateData {
-  id: number;
-  Name: string;
-  Description: string;
-  Country: string;
-  Status: string;
-}
-
-interface StateSliceState {
-  data: StateData[];
-  loading: boolean;
-  error: string | null;
-}
+import { StateData, StateSliceState } from "@/Types";
 
 const initialState: StateSliceState = {
   data: [],
@@ -54,7 +41,7 @@ const stateSlice = createSlice({
       )
       .addCase(fetchStates.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message ?? "Failed to fetch states";
+        state.error = action.error.message ?? "Fetching Failed ";
       });
   },
 });

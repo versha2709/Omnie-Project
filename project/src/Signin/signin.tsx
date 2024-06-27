@@ -60,9 +60,6 @@ const SignIn: React.FC = () => {
       <CssBaseline />
       <Container component="main" maxWidth="xs" className="form-box">
         <Box sx={containerSx}>
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
@@ -84,7 +81,6 @@ const SignIn: React.FC = () => {
                   autoComplete="username"
                   autoFocus
                   error={touched.username && Boolean(errors.username)}
-                  helperText={touched.username && errors.username}
                 />
                 <Field
                   as={TextField}
@@ -97,7 +93,6 @@ const SignIn: React.FC = () => {
                   id="password"
                   autoComplete="current-password"
                   error={touched.password && Boolean(errors.password)}
-                  helperText={touched.password && errors.password}
                 />
 
                 <Button
